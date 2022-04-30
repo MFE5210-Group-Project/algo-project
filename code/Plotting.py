@@ -15,7 +15,7 @@ data_plot = pd.DataFrame(y, x)
 
 
 # Plot Function
-def display(data_plot, xname, yname, picname, savename):
+def display_gif(data_plot, xname, yname, picname, savename):
     fig = plt.figure(figsize=(25, 15))
     plt.ylim(np.min(y), np.max(y))
     plt.xlabel(xname, fontsize=35)
@@ -36,6 +36,6 @@ def display(data_plot, xname, yname, picname, savename):
     plt.show()
 
 
-# display(data_plot, 'Time', 'Cumulative Return',
+# display_gif(data_plot, 'Time', 'Cumulative Return',
 #         'Back-test: Cumulative Return',
 #         'Back-test: Cumulative Return.gif')

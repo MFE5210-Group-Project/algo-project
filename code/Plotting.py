@@ -1,21 +1,49 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import seaborn as sns
+import quantstats as qs
 import pandas as pd
 import numpy as np
 
 
-# Data
+# Data for test the function
 df = pd.read_csv('/Users/wyb/Desktop/stratification_test_5.csv', index_col='trading_date')
-cumulative_ret = df.iloc[:, 3]
+daily_ret = df.iloc[:, 6]
 x = np.array(df.index)
-y = np.array(cumulative_ret)
-data_plot = pd.DataFrame(y, x)
-# print(data_plot)
+y = np.array(daily_ret)
+data_plot = pd.Series(daily_ret, x)
+data_plot.index = pd.to_datetime(data_plot.index)
 
 
 # Plot Function
+def display_figure(stock, plot_full):
+    """
+
+    :param stock: Series; index is Time (Datetime); column is daily_return (Series, float32)
+    :param plot_full: True: reports.full; False: reports.basic
+    :return: Figures; Strategy performance
+    """
+    qs.extend_pandas()
+    if plot_full is True:
+        qs.reports.full(stock, benchmark=None, rf=0.03, grayscale=False, display=True, compounded=True)
+    else:
+        qs.reports.basic(stock, benchmark=None, rf=0.03, grayscale=False, display=True, compounded=True)
+
+
+# display_figure(data_plot, False)
+
+
 def display_gif(data_plot, xname, yname, picname, savename):
+    """
+
+    :param data_plot: DataFrame; index is Time
+    :param xname: str; x label
+    :param yname: str; y label
+    :param picname: str; title
+    :param savename: str; saving path
+    :return: GIF
+    """
+
     fig = plt.figure(figsize=(25, 15))
     plt.ylim(np.min(y), np.max(y))
     plt.xlabel(xname, fontsize=35)

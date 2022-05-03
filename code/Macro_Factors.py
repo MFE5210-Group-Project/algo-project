@@ -47,9 +47,12 @@ data[['finance_balance', 'margin_balance', 'currency', 'north_money', 'north_mon
 # # Correlation analysis
 # print(data.corr())
 
-
 # Factor analysis
 # Create short-term and long-term ratio
+
+# Parameters
+# short_para_list = [3, 5, 9]
+# long_para_list = [12, 22, 60]
 short_length = 5
 long_length = 22
 
@@ -72,6 +75,7 @@ def ma_ratio(indicator, short_l, long_l, trend):
     return s
 
 
+# Compare the original and signal adjusted yield curve
 signal = np.array(ma_ratio(data.iloc[:, 1], short_length, long_length, 'down'))
 x = np.array(data.iloc[long_length-1:, -1])
 y = signal*x

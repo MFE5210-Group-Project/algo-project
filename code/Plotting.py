@@ -7,12 +7,21 @@ import numpy as np
 
 
 # Data for test the function
-df = pd.read_csv('/Users/wyb/Desktop/stratification_test_5.csv', index_col='trading_date')
-daily_ret = df.iloc[:, 6]
-x = np.array(df.index)
-y = np.array(daily_ret)
-data_plot = pd.Series(daily_ret, x)
-data_plot.index = pd.to_datetime(data_plot.index)
+# df = pd.read_csv('/Users/wyb/Desktop/stratification_test_5.csv', index_col='trading_date')
+# ret = df.iloc[:, 6]
+# cumulative = []
+# for i in range(ret.shape[0]):
+#     if i == 0:
+#         cumulative.append(ret[0]+1)
+#     else:
+#         cumulative.append(cumulative[-1]*(1+ret[i]))
+# data_plot = pd.DataFrame(cumulative, index=ret.index)
+# print(data_plot)
+
+# x = np.array(df.index)
+# y = np.array(daily_ret)
+# data_plot = pd.Series(daily_ret, x)
+# data_plot.index = pd.to_datetime(data_plot.index)
 
 
 # Plot Function
@@ -33,7 +42,7 @@ def display_figure(stock, plot_full):
 # display_figure(data_plot, False)
 
 
-def display_gif(data_plot, xname, yname, picname, savename):
+def display_gif(data_plot, xname, yname, picname, savepath):
     """
 
     :param data_plot: DataFrame; index is Time
@@ -45,7 +54,6 @@ def display_gif(data_plot, xname, yname, picname, savename):
     """
 
     fig = plt.figure(figsize=(25, 15))
-    plt.ylim(np.min(y), np.max(y))
     plt.xlabel(xname, fontsize=35)
     plt.xticks(range(0, data_plot.shape[0], 15))
     plt.ylabel(yname, fontsize=35)
@@ -60,10 +68,10 @@ def display_gif(data_plot, xname, yname, picname, savename):
         plt.setp(p.lines, linewidth=3)
 
     ani = animation.FuncAnimation(fig, animate, frames=data_plot.shape[0])
-    ani.save(savename, writer='pillow')
+    ani.save(savepath, writer='pillow')
     plt.show()
 
 
-# display_gif(data_plot, 'Time', 'Cumulative Return',
-#         'Back-test: Cumulative Return',
-#         'Back-test: Cumulative Return.gif')
+display_gif(data_plot, 'Time', 'Cumulative Return',
+        'Back-test: Cumulative Return',
+        'Back-test: Cumulative Return.gif')

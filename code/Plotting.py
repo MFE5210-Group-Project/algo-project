@@ -2,26 +2,6 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import seaborn as sns
 import quantstats as qs
-import pandas as pd
-import numpy as np
-
-
-# Data for test the function
-# df = pd.read_csv('/Users/wyb/Desktop/stratification_test_5.csv', index_col='trading_date')
-# ret = df.iloc[:, 6]
-# cumulative = []
-# for i in range(ret.shape[0]):
-#     if i == 0:
-#         cumulative.append(ret[0]+1)
-#     else:
-#         cumulative.append(cumulative[-1]*(1+ret[i]))
-# data_plot = pd.DataFrame(cumulative, index=ret.index)
-# print(data_plot)
-
-# x = np.array(df.index)
-# y = np.array(daily_ret)
-# data_plot = pd.Series(daily_ret, x)
-# data_plot.index = pd.to_datetime(data_plot.index)
 
 
 # Plot Function
@@ -39,13 +19,10 @@ def display_figure(stock, plot_full):
         qs.reports.basic(stock, benchmark=None, rf=0.03, grayscale=False, display=True, compounded=True)
 
 
-# display_figure(data_plot, False)
-
-
 def display_gif(data_plot, xname, yname, picname, savepath):
     """
 
-    :param data_plot: DataFrame; index is Time
+    :param data_plot: DataFrame(n*1）; index is Time
     :param xname: str; x label
     :param yname: str; y label
     :param picname: str; title
@@ -72,6 +49,4 @@ def display_gif(data_plot, xname, yname, picname, savepath):
     plt.show()
 
 
-display_gif(data_plot, 'Time', 'Cumulative Return',
-        'Back-test: Cumulative Return',
-        'Back-test: Cumulative Return.gif')
+
